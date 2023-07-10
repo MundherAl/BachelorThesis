@@ -1,0 +1,8 @@
+{
+	"nodes":[
+		{"type":"text","text":"Look into:","id":"68a05c054a2604fe","x":-460,"y":-220,"width":250,"height":60,"color":"#801919"},
+		{"type":"text","text":"- Feature extraction\n- ","id":"595d8a5f9c2abe9f","x":-460,"y":-140,"width":250,"height":260,"color":"5"},
+		{"type":"text","text":"Reading List\n- [Empirical Benefits of Training to Phishing Susceptibility | SpringerLink](https://link.springer.com/chapter/10.1007/978-3-642-30436-1_37)","id":"969d76f6faf91e49","x":-160,"y":-220,"width":449,"height":211}
+	],
+	"edges":[]
+}
