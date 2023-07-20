@@ -1,0 +1,67 @@
+\subsection{Data Collection}
+
+Data collection is a crucial step in any research. When conducting a text analysis, there is more often than not a need to collect data from the internet. The difficulty of this task can vary depending on the source of the data. For example, data from social media platforms or research portals is often easier to collect than data from websites. This is because these platforms often provide APIs that allow developers to collect data. On the other hand, other websites do not always provide APIs. In such cases, researchers may have to resort to webscraping. Webscraping is a method of automatically extracting, combining and saving data from websites. The paper uses webscraping to collect data from scamalert.sg.
+
+\subsubsection{Scamalert}
+
+Scamalert is a website run by the National Crime Prevention Council (NCPC), which is a non-profit organization that is committed promoting public awareness and concern about crime and to propagate the concept of self-help in crime prevention.~\citep{ncpc} Scamalert contains educational sources to help people protect themselves from scams as well as provide information about acting after falling victim to a scam.
+
+Most relevant to this paper is the section "Scam Stories". Persons who experience a crime can share their stories on the website. The stories can be sent anonymously and are published on the website. The stories are well-formatted, all containing a title, date, category, and the story itself.
+
+Scamalert does not provide an API to access the stories. Therefore, webscraping was used to collect the data. 
+
+\subsubsection{Webscraping}
+
+The webscraping process was done using four libraries in Julia. Julia is a contemporary programming language that is designed for high-performance computing which is favored among data scientists. % TODO: Add citation
+The four libraries in use were:
+
+\begin{itemize}
+    \item HTTP.jl: A library for making HTTP requests and handling responses 
+    \item Gumbo.jl: A library for parsing HTML documents
+    \item Cascadia.jl: A library for querying HTML documents using CSS selectors
+    \item JSON.jl: A library for parsing JSON documents
+\end{itemize}
+
+The first step of webscraping is figuring out the structure of the website to find an efficient way of scraping the data. Fortunately, the website was well-structured. The \texttt{/stories} directory contains all the pages with stories. The stories are paginated, with each page containing data about 6 stories. The pages contained a lot of meta data about the stories, but the most important were the following: title, date, category, URL and description of the story. The story itself is not included in the page. 
+
+This meant that the webscraping needed to be done in two steps. The first step was to collect the meta data of the stories. This was done through POST requests using HTML.jl. The requests were then parsed into JSON documents using JSON.jl then saved locally on the computer. The second step was to collect the stories themselves. This was done by iterating through the JSON documents and collecting the URLs of the stories. The URLS were then used in GET requests to collect the HTML documents of the stories. The HTML documents were then parsed using Gumbo.jl. The stories were then extracted from the HTML documents using CSS selectors provided by Cascadia.jl. The stories were then saved locally on the computer.
+
+The data was collected on the 10th of July 2023. On the first step, a total of 590 pages were scraped, containing a total of 3536 stories. It was observed later in the process that the requests did not contain the category of the scams. This was not remedied as the category was not considered for the analysis.
+
+The second step retrieved 3495 stories, which is 41 stories less than expected. The process of scraping was logged. The logs have shown that there were 41 errors. The errors were not caused by connectivity issues, but rather by selector issues encountered by Cascadia.jl. Upon further investigation, it was found that the cause of the errors was the HTML documents themselves. The retrieved HTML documents contained an error that is likely caused by the website host deleting the story.
+
+After the webscraping step, a decision was made to switch to Python as the choice for a programming language. While Julia does have many data analysis libraries, it was decided that Python's eco-system is more robust and enables more room for experimentation with the data. 
+
+\subsubsection{Data Preprocessing}
+
+Another important step of data analysis is the prepocessing of data. Data preprocessing can be defined as the cleaning of data and parsing it into a format that is suitable for further processing. An example of this is the removal of non-english stories, since the analysis aims to only consider stories written in english. There were a total of 5 non-english stories. The stories were removed from the dataset.
+
+Since the aim is to do a text analysis, it is necessary to use natural language processing (NLP). NLP combines aritificial intelligence and linguistics to enable "understanding" of content. NLP is critical for topic models, as it is used to bring the text into a format that is suitable for topic modeling. Preprocessing also increases the accuracy of both topic models and sentiment analyses.~\cite{haddi2013role}\cite{chauhan2021topic}
+
+The preprocessing was done using the Natural Language Toolkit (NLTK) library. Using NLTK, the text was tokenized, stripped off of punctuation, numbers, stopwords and emojis. Then the data was split into two sets: a set with lemmatizing and a set without lemmatizing. Lemmatizing is the process of reducing words to their root form. For instance, the word "writing" is reduced to "write". While lemmatization is a common preprocessing step, the decision to split the data was made on the basis of the claim that lemmatization correlates negatively with human interprability of topic models. An example of a sentence that is preprocessed is illustrated in the table below:
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{cc}
+        Original & Preprocessed \\ \hline
+        I was scammed by a fake website. & scam fake website \\
+        \\
+        Original & Preprocessed (without lemmatization) \\ \hline
+        I was scammed by a fake website. & scammed fake website \\
+    \end{tabular}
+    \caption{Example of a preprocessed sentence. The word "scammed" was not returned to its root form in the second table.}
+    \label{tab:preprocessing}
+\end{table}
+
+Additionally, the Spellchecker library in Python was used to correct spelling mistakes. This does not include grammatical errors. It is not a usual practice to correct for spelling errors in topic modeling. However, since the data set consists of stories written by users, there is a high chance of spelling errors. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/spelling_mistakes_distribution.png}
+    \caption{Distribution of spelling errors}
+    \label{fig:spelling_error_distribution}
+\end{figure}
+
+
+A spelling error analysis revealed that there was a total of 61070 spelling mistakes in 505672 words ($\approx 12\%$). The mean error was $\approx17$ errors per story. The median error was 13 errors per story.
