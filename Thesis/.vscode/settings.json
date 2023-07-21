@@ -1,0 +1,14 @@
+{
+    "files.exclude": {
+        "Project/research-proposal": true,
+        "Literature": true,
+        "Project/thesis/Latexvorlage_BA_Arbeit_einseitig.synctex.gz": true,
+        "Project/thesis/Latexvorlage_BA_Arbeit_einseitig.log": true,
+        "Project/thesis/Latexvorlage_BA_Arbeit_einseitig.fls": true,
+        "Project/thesis/Latexvorlage_BA_Arbeit_einseitig.fdb_latexmk": true,
+        "Project/thesis/Latexvorlage_BA_Arbeit_einseitig.blg": true,
+        "Project/thesis/Latexvorlage_BA_Arbeit_einseitig.bbl": true,
+        "Project/thesis/Latexvorlage_BA_Arbeit_einseitig.aux": true,
+        "Project/thesis/Latexvorlage_BA_Arbeit_einseitig.toc": true
+    }
+}
