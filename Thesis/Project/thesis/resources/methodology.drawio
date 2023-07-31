@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="qRHD0z-vCHNRSty2t5GB" name="Page-1">
-        <mxGraphModel dx="659" dy="540" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1118" dy="535" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -15,23 +15,28 @@
                 <mxCell id="2" value="Webscraping" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
                     <mxGeometry x="70" y="250" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="13" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3" target="4" edge="1">
+                <mxCell id="21" style="edgeStyle=none;html=1;exitX=1;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3" target="4" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="560" y="280"/>
+                            <mxPoint x="480" y="220"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="14" style="edgeStyle=none;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3" target="5" edge="1">
+                <mxCell id="24" value="Preprocessed set 2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="21" vertex="1" connectable="0">
+                    <mxGeometry x="-0.222" y="2" relative="1" as="geometry">
+                        <mxPoint x="40" y="2" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="22" style="edgeStyle=none;html=1;exitX=1;exitY=0.75;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3" target="5" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="560" y="280"/>
+                            <mxPoint x="480" y="340"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="15" value="Preprocessed Data" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="14" vertex="1" connectable="0">
-                    <mxGeometry x="-0.5414" relative="1" as="geometry">
-                        <mxPoint x="16" as="offset"/>
+                <mxCell id="23" value="Preprocessed set 1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="22" vertex="1" connectable="0">
+                    <mxGeometry x="0.0998" y="-1" relative="1" as="geometry">
+                        <mxPoint x="11" y="-1" as="offset"/>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="3" value="Preprocessing" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">

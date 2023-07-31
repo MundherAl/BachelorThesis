@@ -4,13 +4,14 @@
 \usepackage{natbib}
 \usepackage{graphicx}
 \usepackage{tabularx}
+\usepackage{float}
 
 \begin{document}
 %===========================================================
 \begin{titlepage}
 \begin{center}
 
-\textbf{\LARGE How Victims Cope with Cybercrime Incidents: A Text Analysis Approach}
+\textbf{\LARGE How Victims Describe Cybercrime Incidents: A Text Analysis Approach}
 
 \bigskip\bigskip
 \textbf{Bachelor Thesis}
@@ -38,17 +39,6 @@ Second supervisor: Prof.\ Dr.\ Melanie Schmidt
 \thispagestyle{empty}\mbox{}\pagebreak
 \setcounter{page}{0}
 
-%===========================================================
-% Abstract
-%===========================================================
-\section*{Abstract}
-\addcontentsline{toc}{section}{Abstract}
-Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere corporis reiciendis accusantium adipisci veritatis facilis earum nemo debitis, minima eius eum vitae, rerum eaque excepturi molestias quibusdam quo? Quibusdam, obcaecati.
-Error quis eaque ipsam, veritatis hic nihil odit, perspiciatis maxime dolor animi optio sunt molestiae? Magnam maxime dolores nobis labore minus, tempore iste nulla voluptatibus eum tenetur commodi natus doloremque!
-Eum beatae ut provident corporis pariatur corrupti possimus recusandae officiis adipisci dolores tenetur accusamus ipsa sequi tempore numquam autem, laborum commodi quis minima voluptatibus nam unde eveniet sint animi. Quis?
-Consectetur, reprehenderit quisquam. Omnis facere eveniet dolore exercitationem quo ducimus consectetur quis facilis consequuntur, cupiditate architecto, reiciendis molestiae officia quaerat maiores optio, labore sapiente doloribus ex eaque recusandae corrupti iure?
-Ipsum architecto eveniet possimus rem quisquam, consequuntur consequatur totam magnam eum aspernatur? Quo, aliquid tempora ducimus perspiciatis inventore saepe, provident ea molestiae quos eius quia et? Assumenda voluptatum voluptates itaque?
-\pagebreak
 
 
 
@@ -59,6 +49,16 @@ Ipsum architecto eveniet possimus rem quisquam, consequuntur consequatur totam m
 \tableofcontents
 \pagebreak
 
+%===========================================================
+% Abstract
+%===========================================================
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere corporis reiciendis accusantium adipisci veritatis facilis earum nemo debitis, minima eius eum vitae, rerum eaque excepturi molestias quibusdam quo? Quibusdam, obcaecati.
+Error quis eaque ipsam, veritatis hic nihil odit, perspiciatis maxime dolor animi optio sunt molestiae? Magnam maxime dolores nobis labore minus, tempore iste nulla voluptatibus eum tenetur commodi natus doloremque!
+Eum beatae ut provident corporis pariatur corrupti possimus recusandae officiis adipisci dolores tenetur accusamus ipsa sequi tempore numquam autem, laborum commodi quis minima voluptatibus nam unde eveniet sint animi. Quis?
+Consectetur, reprehenderit quisquam. Omnis facere eveniet dolore exercitationem quo ducimus consectetur quis facilis consequuntur, cupiditate architecto, reiciendis molestiae officia quaerat maiores optio, labore sapiente doloribus ex eaque recusandae corrupti iure?
+Ipsum architecto eveniet possimus rem quisquam, consequuntur consequatur totam magnam eum aspernatur? Quo, aliquid tempora ducimus perspiciatis inventore saepe, provident ea molestiae quos eius quia et? Assumenda voluptatum voluptates itaque?
 
 %===========================================================
 % Introduction
@@ -73,11 +73,10 @@ Ipsum architecto eveniet possimus rem quisquam, consequuntur consequatur totam m
 \input{data_collection.tex}
 \input{data_analysis_topic_model.tex}
 \input{data_analysis_sentiment_analysis.tex}
+\input{results.tex}
 
 %===========================================================
-\section{Results}
-\subsection{Topic Modeling}
-\subsubsection{Evaluation}
+
 \subsection{Sentiment Analysis}
 \subsubsection{Evaluation}
 

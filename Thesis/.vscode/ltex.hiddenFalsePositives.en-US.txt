@@ -1,0 +1,3 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QScamalert is a website run by the National Crime Prevention Council (NCPC), which is a non-profit organization that is committed promoting public awareness and concern about crime and to propagate the concept of self-help in crime prevention.\\E$"}
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q Scamalert contains educational sources to help people protect themselves from scams as well as provide information about acting after falling victim to a scam.\\E$"}
+{"rule":"ADJECTIVE_IN_ATTRIBUTE","sentence":"^\\QAbstracts of research papers are in comparison larger in size and content.\\E$"}

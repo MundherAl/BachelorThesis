@@ -22,15 +22,15 @@ The four libraries in use were:
     \item JSON.jl: A library for parsing JSON documents
 \end{itemize}
 
-The first step of webscraping is figuring out the structure of the website to find an efficient way of scraping the data. Fortunately, the website was well-structured. The \texttt{/stories} directory contains all the pages with stories. The stories are paginated, with each page containing data about 6 stories. The pages contained a lot of meta data about the stories, but the most important were the following: title, date, category, URL and description of the story. The story itself is not included in the page. 
+The first step of webscraping is figuring out the structure of the website to find an efficient way of scraping the data. Fortunately, the website was well-structured. The \texttt{/stories} directory contains all the pages with stories. The stories are paginated, with each page containing data about 6 stories. The pages contained a lot of metadata about the stories, but the most important were the following: title, date, category, URL and description of the story. The story itself is not included in the page. 
 
-This meant that the webscraping needed to be done in two steps. The first step was to collect the meta data of the stories. This was done through POST requests using HTML.jl. The requests were then parsed into JSON documents using JSON.jl then saved locally on the computer. The second step was to collect the stories themselves. This was done by iterating through the JSON documents and collecting the URLs of the stories. The URLS were then used in GET requests to collect the HTML documents of the stories. The HTML documents were then parsed using Gumbo.jl. The stories were then extracted from the HTML documents using CSS selectors provided by Cascadia.jl. The stories were then saved locally on the computer.
+This meant that the webscraping needed to be done in two steps. The first step was to collect the metadata of the stories. This was done through POST requests using HTML.jl. The requests were then parsed into JSON documents using JSON.jl then saved locally on the computer. The second step was to collect the stories themselves. This was done by iterating through the JSON documents and collecting the URLs of the stories. The URLS were then used in GET requests to collect the HTML documents of the stories. The HTML documents were then parsed using Gumbo.jl. The stories were then extracted from the HTML documents using CSS selectors provided by Cascadia.jl. The stories were then saved locally on the computer.
 
 The data was collected on the 10th of July 2023. On the first step, a total of 590 pages were scraped, containing a total of 3536 stories. It was observed later in the process that the requests did not contain the category of the scams. This was not remedied as the category was not considered for the analysis.
 
 The second step retrieved 3495 stories, which is 41 stories less than expected. The process of scraping was logged. The logs have shown that there were 41 errors. The errors were not caused by connectivity issues, but rather by selector issues encountered by Cascadia.jl. Upon further investigation, it was found that the cause of the errors was the HTML documents themselves. The retrieved HTML documents contained an error that is likely caused by the website host deleting the story.
 
-After the webscraping step, a decision was made to switch to Python as the choice for a programming language. While Julia does have many data analysis libraries, it was decided that Python's eco-system is more robust and enables more room for experimentation with the data. 
+After the webscraping step, a decision was made to switch to Python as the choice for a programming language. While Julia does have many data analysis libraries, it was decided that Python's ecosystem is more robust and enables more room for experimentation with the data. 
 
 \subsubsection{Data Preprocessing}
 
@@ -38,7 +38,18 @@ Another important step of data analysis is the prepocessing of data. Data prepro
 
 Since the aim is to do a text analysis, it is necessary to use natural language processing (NLP). NLP combines aritificial intelligence and linguistics to enable "understanding" of content. NLP is critical for topic models, as it is used to bring the text into a format that is suitable for topic modeling. Preprocessing also increases the accuracy of both topic models and sentiment analyses.~\cite{haddi2013role}\cite{chauhan2021topic}
 
-The preprocessing was done using the Natural Language Toolkit (NLTK) library. Using NLTK, the text was tokenized, stripped off of punctuation, numbers, stopwords and emojis. Then the data was split into two sets: a set with lemmatizing and a set without lemmatizing. Lemmatizing is the process of reducing words to their root form. For instance, the word "writing" is reduced to "write". While lemmatization is a common preprocessing step, the decision to split the data was made on the basis of the claim that lemmatization correlates negatively with human interprability of english topic models.~\cite{schofield2016comparing} An example of a sentence that is preprocessed is illustrated in the table below:
+\subsubsection*{Preprocessing for Topic Modeling}
+
+The preprocessing step for the topic model is illustrated in the following figure (figure 2):
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{resources/preprocessing_topic_modeling.png}
+    \caption{Data preprocessing for topic modeling. Two datasets are produced, one is with lemmatization and one is without.}
+    \label{fig:preprocessing_topic_modeling}
+\end{figure}
+
+The preprocessing was done using the Natural Language Toolkit (NLTK) library. Using NLTK, the text was tokenized, brought to lower-case, stripped off of punctuation, numbers, stopwords and emojis. Then the data was split into two sets: a set with lemmatizing and a set without lemmatizing. Lemmatizing is the process of reducing words to their root form. For instance, the word "writing" is reduced to "write". While lemmatization is a common preprocessing step, the decision to split the data was made on the basis of the claim that lemmatization correlates negatively with human interprability of english topic models.~\cite{schofield2016comparing} An example of a sentence that is preprocessed is illustrated in the table below:
 
 
 \begin{table}[h]
@@ -54,7 +65,7 @@ The preprocessing was done using the Natural Language Toolkit (NLTK) library. Us
     \label{tab:preprocessing}
 \end{table}
 
-Additionally, the Spellchecker library in Python was used to correct spelling mistakes. This does not include grammatical errors. It is not a usual practice to correct for spelling errors in topic modeling. However, since the data set consists of stories written by users, there is a high chance of spelling errors. 
+Additionally, the TextBlob library in Python was used to correct spelling mistakes. This does not include grammatical errors. It is not a usual practice to correct for spelling errors in topic modeling. However, since the data set consists of stories written by users, there is a high chance of spelling errors. 
 
 \begin{figure}[h]
     \centering
@@ -64,4 +75,15 @@ Additionally, the Spellchecker library in Python was used to correct spelling mi
 \end{figure}
 
 
-A spelling error analysis revealed that there was a total of 61070 spelling mistakes in 505672 words ($\approx 12\%$). The mean error was $\approx17$ errors per story. The median error was 13 errors per story. The conclusion was that the spelling errors were significant enough to warrant correction. The caveat is that the spellchecker library is not context-aware, it uses edit-distance algorithms to correct spelling errors. This means that it is possible to get corrections that false positives. For example, if the word "fraud" was mispelled as "faurd", it would be corrected to "found". However, it seemed that the benefits of correcting spelling errors outweighed the risks. The idea was that a false positive would appear too infrequently to have an impact on the analysis, while a true positive would contribute to the accuracy of it. This is explained further later in the paper.
+A spelling error analysis revealed that there was a total of 61070 spelling mistakes in 505672 words ($\approx 12\%$). The mean error was $\approx17$ errors per story. The median error was 13 errors per story. The conclusion was that the spelling errors were significant enough to warrant correction. The caveat is that the spellchecker library is not context-aware, it uses edit-distance algorithms to correct spelling errors. This means that it is possible to get corrections that false positives. For example, if the word "fraud" was mispelled as "faurd", it could be corrected to "found". However, it seemed that the benefits of correcting spelling errors outweighed the risks. The idea was that a false positive would appear too infrequently to have an impact on the analysis, while a true positive would contribute to the accuracy of it.
+
+\subsubsection*{Preprocessing for Sentiment Analysis}
+
+The preprocessing for sentiment analysis was simpler than that of topic modeling. The text was sentence-tokenized then split into two datasets, one with spelling correction and one without. Extensive preprocessing will likely remove lexical features that are important for sentiment analysis. Emojis and negations are simple examples of this. This will be elaborated further in the section about sentiment analysis.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{resources/preprocessing_sentiment_analysis.png}
+    \caption{Data preprocessing for sentiment analysis. Two datasets are produced, one is with spelling correction and one is without.}
+    \label{fig:preprocessing_sentiment_analysis}
+\end{figure}
