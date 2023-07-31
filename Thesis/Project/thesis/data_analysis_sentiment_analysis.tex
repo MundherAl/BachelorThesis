@@ -1,2 +1,69 @@
 \subsection{Sentiment Analysis}
+
+Many texts are written purely to convey information without intentions of containing any sentiment. Defining sentiment can be a tricky task, but as many other researchers do, this paper uses the loose definition of sentiment as "negative or positive opinion".~\cite{mejova2009sentiment} This definition may be viewed as too simplistic or reductionist, but it has its benefits.
+
+Research papers and textbooks tend to be written in a neutral tone, evasive of any sentiment. On the other hand, texts like novels, poems, songs and social media posts are often written with the intention of conveying sentiment. Answering the question: "What do people feel about a certain subject?" is valuable for companies and organizations. By understanding public opinion, companies and organizations can gain insights, improve their decision making or use it as a form of feedback to improve their products and services.~\cite{mejova2009sentiment}
+
+Given the data that has been collected for this paper, it is interesting to ask: "What are the sentiments of stories told by cybercrime victims?" Intuitively, one would expect pre-dominantly negative sentiments, but if there is positive sentiment, it would be interesting to know why. Morever, it is intersting to know the intensity of the sentiment. Are the stories very negatively told? Are they slightly negative? And so on.
+
+\subsubsection*{Method}
+
+Just as with topic modeling, it is of course possible but time consuming to manually read texts and categorize it into sentiment. Sentiment analysis is a way of automating this process. Sentiment analysis is a natural language processing technique that extracts sentiments from texts. Since sentiment is considered to be an opinion, it is a subjective measure, making it difficult to extract. An advantage of the simplistic definition given above is that it is of categorical nature, which makes it a task for supervised machine learning. Given a data set of texts and their sentiment, a machine learning model can be trained to predict the sentiment of a text.
+
+However, as expected, Scam Alert does not provide sentiment labels for the stories told by their users, making the machine learning based approach out of scope for this paper. Beside the labeling issue, machine learning approaches have other problems like computing costs and requiring extensive amounts of data.~\cite{hutto2014vader} Alternatively, a lexicon based approach can be used. Lexicons don't typically contain information about sentiment, but some lexicons have been developed that do, so-called sentiment lexicons. A sentiment lexicon is a list of words that are annotated with a sentiment score.~\cite{bonta2019comprehensive} For example, Valence Aware Dictionary and sEntiment Reasoner (VADER) is a sentiment lexicon, which also describes sentiment intensity, that contains over 7,500 words and emoticons that are annotated with a sentiment compound score between -4 and 4, -4 being most negative, 0 being neutral and 4 being most positive.~\cite{hutto2014vader} The NLTK library contains a sentiment analysis implementation that uses the VADER lexicon, which is used in this paper. The compound score is normalized to be a value between -1 and 1 in the NLTK implementation. The NLTK implementation also provides the proprotion of negative, neutral and positive sentiment in a text.
+
+\begin{table}
+    \centering
+    \resizebox{\textwidth}{!}{
+        \begin{tabular}{lllll}
+            \hline
+            \textbf{Sentence} & \textbf{Negative} & \textbf{Neutral} & \textbf{Positivity} & \textbf{Compound} \\ \hline
+            'It was a giant disaster.' & 0.672 & 0.328 & 0.0 & -0.6249 \\
+            'I felt supported.' & 0.0 & 0.303 &  0.697 & 0.3182\\ 
+            'The caller introduced himself.' & 0.0 & 1 &  0 & 0\\ \hline
+        \end{tabular}
+        }
+    \caption{Examples of sentiment analysis results on different unprocessed texts.}
+    \label{tab:sentiment_analysis_results}
+\end{table}
+
+There are also new modern approaches to sentiment analysis that combine supervised learning with lexicon based approaches that seem to generally present better results than solely machine learning based approaches.~\cite{ahmad2017hybrid} Since lexicon-based approaches are rule-based, there will be cases where sentiment extraction won't be very accurate. The hybrid approach mends this problem by compensating for the shortcomings of the lexicon-based approach with the machine learning based approach. However, the hybrid approach was deemed out of scope for this paper.
+
+\subsubsection*{The VADER Lexicon}
+
+The VADER lexicon is a simple rule-based model for sentiment analysis. It is a gold-standard lexicon that was empirically validated by independent human raters. It expands on well-established lexicons that existed before it, namely General Inquirer (GI), Linguistic Inquiry and Word Count (LIWC) and the Affective Norms for English Words (ANEW). It recognizes additional lexical features like emoticons, acronyms and slang, which are commonly used in social media.~\cite{hutto2014vader}
+
+VADER is tuned to the process of word-sense disambiguation, which is the process of determining the meaning of a word in a sentence depending on the context. An example by the authors of the VADER lexicon is the word "catch", which can be used in a negative sense, like "At first glance the contract looks good, but there's a catch". But the word "catch" can also be neutrally. The sentence "The fisherman plans to sell his catch at the market" illustrates this.~\cite{hutto2014vader}
+
+Being "rule-based" refers to the fact that the VADER lexicon uses a set of rules to determine the sentiment of a text. The rules are based on the following heuristics:
+
+\begin{enumerate}
+    \item Punctuation, capitalization, degree modifiers and conjunctions increase the magnitude of the sentiment score.
+    \item Adverbs increase the magnitude of the sentiment score.
+    \item Negations reverse the polarity of the sentiment score.
+    \item Emojis and emoticons are scored positively.
+    \item Words in ALL CAPS are scored more strongly.
+\end{enumerate}
+
+This makes the VADER lexicon a good choice for social media texts, since they often contain the above mentioned features, which affect the perceived sentiment of a text. This is an advantage over bag-of-words approaches, which don't consider word order.
+
+\begin{table}
+    \centering
+    \begin{tabular}{lc}
+        \hline
+        \textbf{Sentence} & \textbf{Compound Score} \\ \hline
+        'I didn't feel good about it.' & -0.3412  \\
+        'I felt awful about it.' & -0.4588 \\ 
+        'I felt AWFUL about it.' & -0.5766 \\ 
+        'i felt AWFUL about it!!!' & -0.6817 \\ \hline
+    \end{tabular}
+    \caption{The sentiment compound score of a text is affected by punctuation, capitalization and degree modifiers.}
+    \label{tab:sentiment_analysis_results}
+\end{table}
+
+
+The VADER lexicon performs in most cases better than 11 other well-established lexicons. In a case of analyzing 4,200 tweets, it even performed better than human raters.~\cite{hutto2014vader} It was also externally validated to perform better than alternatives.~\cite{al2020evaluating}\cite{min2020comparative} Therefore, VADER was considered to be a good choice for this paper.
+
+
+
 \subsubsection{Limitations}
