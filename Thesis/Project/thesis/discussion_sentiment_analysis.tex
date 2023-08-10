@@ -1,0 +1,34 @@
+\subsection{Sentiment Analysis}
+
+The sentiment analysis delivered surprising results. Crime is a negative experience for its victim and one would untuitively expect victims to exhibit negative emotions when talking about their experience. However, the results indicate that the sentiment is quite neutral. But what is more counter-intuitive is that positive sentiments seem to be more common than negative ones.
+
+\subsubsection*{False Interpretations}
+
+Perhaps the biggest factor that affects the quality of the sentiment analysis is how the VADER lexicon interprets the data. Many sentences were not meant to contain positive nor negative sentiment, but were interpreted as such. For example, the sentence "I accepted a friend request on Facebook because we had a common friend." was interpreted as very positive with a compound score of 0.82, where it is meant to be neutral. This is likely because the word "friend" was present twice in the sentence.
+
+The sentence "When the time came, they resorted to emotional blackmail and questioned my integrity to manipulate me into assisting them." was interpreted as quite positive too, with a compound score of 0.42. This is a confusing result, given that the words "blackmail" and "manipulate" are present in the sentence. It seems that the word "assist" was favored by the rules of the VADER lexicon and labeled the sentence as positive.
+
+While it's not easy to count the amount of false interpretations, an inspection of the data showed that such interpretations were not so uncommon. 
+
+\subsubsection*{The Effect of Spell Correction}
+
+When glancing at the results presented in section \ref{sec:sentiment_analysis}, it looks like spell-correction did not significantly affect the sentiment of the data. A visual inspection of figure \ref{fig:sentiment_distribution} doesn't reveal any large notable changes in the distribution and the mean compound score differs by an insignificant fraction. A t-test reveals that the difference is statistically insignificant for all measures of the analysis, delivering (p $>$ 0.2) for the sentiment proportions and (p $>$ 0.9) for the compound score.
+
+Upon manually inspecting 50 randomly sampled, corrected sentences, surprisingly no false positives were found. 50 sentences is not a large enough sample to make any conclusions, but it is a good indication that spell correction did not introduce many false positives.
+
+\subsubsection*{Data Origin}
+
+The data set contains originates from Singapore. It is possible that the cultural background of the victims affects the way they describe their experiences. Additionally, the website encourages users to share stories of their experience with crime, but users might be inclined to keep a neutral tone when sharing their stories. Scamalert looks to warn and educate people about scams, so it is possible that it's an environment that encourages neutral language. Users share also share their stories anonymously and this likely affects the way they describe their experience.
+
+\subsubsection*{VADER Limitations}
+
+The lexicon-based approach is not without its shortcomings: 
+
+%% enumerate
+\begin{enumerate}
+    \item \textbf{Limited coverage:} The VADER lexicon is limited in its coverage. It does not contain all possible words, and it is not guaranteed to cover all possible words. This is especially true for new and emerging slang as well as domain-specific language.
+    \item \textbf{Limited word-sense disambiguation:} The VADER lexicon does not perform word-sense disambiguation. For example, the word "sick" can be used to deit scribe a disease or to describe something that is cool. The lexicon does not distinguish between the two meanings, and is up to the context to determine the meaning of the word. This is a difficult task for a machine to perform.
+    \item \textbf{Sarcasm and irony:} Sarcasm and irony are very difficult to detect and are not adressed by the VADER lexicon.
+\end{enumerate}
+
+Perhaps these are limitations that can be alleviated with the machine-learning or the hybrid approach to sentiment analysis.

@@ -1,0 +1,53 @@
+\section{Discussion}
+
+\subsection*{Key Findings}
+
+The analyses produced unexpected results that do not adequately answer the research questions formulated in the introduction. The topic models are not very informative and can be interpreted in many ways, which is not what a topic model should produce.
+
+The sentiment analysis results are also quite surprising. One would expect encounters with cybercrime to provoke negative emotions, but the results show that the majority of the sentences are neutral. What is more surprising is that positive sentiments are more common than negative ones. Furthermore, spell correction during preprocessing did not significantly affect the general sentiment.
+
+\subsection{Topic Models}
+
+The two presented topic models both had coherence scores of over 0.38. It is not possible to state whether this is an acceptable score or not, as the metric only correlates to human interpretability. However, the models produced did not seem to contain interpretable topics. Most topics contained a mix of words that does not construct a context.
+
+One topic that could be considered as interpretable was topic 1 of model 1. The top 5 words were "money", "account", "bank", "pay", "whatsapp", "transfer", which seems to be related to monetary transactions. However, the top 15 words included words like "singapore", "time", "ask", which are not necessarily related to monetary transactions. The rest of the topics were even less interpretable.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{resources/word_cloud1.png}
+    \caption{Word clouds of the top 15 words of the topics of model 1.}
+    \label{fig:wordclouds}
+\end{figure}
+
+Interestingly, model 2 did not produce topics that could be interpreted as related to monetary matters, unlike model 1. This could be an indicator the parameters chosen are not a good fit, since financial damages are very likely to happen in cybercrime cases.
+
+There was no answer to the question of how victims cope with cybercrime. Some words like "friends" or "police" were present in some topics, which are ways that victims might turn to as coping mechanism, but the topics were not interpretable enough to draw any conclusions.
+
+The Hellinger distance between the topics of model 1 was 0.45 indicating that the topics are not very similar, but also not very different. Model 2 averaged a distance of 0.44, which is very similar to model 1. This is somewhat surprising, as the topics of model 2 seem to be more similar to each other. For example, the words "contract", "information" and "friends" (or "friend") are present in at least half of all topics. On the other hand, the topics of model seem to be more diverse when comparing the top words. Of the top 20 words in model 1, only 4 words were present in both topics.
+
+Overall, the topic models are deemed to be not very informative and do not contribute to answering the research questions. There are a few possible reasons for this relating to the process of LDA and the data it was conducted on.
+
+\subsubsection*{The Data}
+
+Machine learning processes depend largely on the data they train on. As mentioned before, noisy data produces noisy results. However, the data used in this project were preprocessed in a commonly practiced way and avoided a common preprocessing step that hurts interpretability, namely lemmatization.~\cite{schofield2016comparing} Though spelling correction is not a common practice, it likely did not increase noise, as false positives most likely appeared too infrequently to have an impact on the analysis. For instance, with a minimal $min\_df$ value of 0.02, a word needs to appear in at least 70 stories to be considered. It is very likely that a false positive would appear in 70 separate stories and be frequent enough to be considered a topic word. Though the research community could benefit from a more thorough scrutinization of the effects of spelling correction on topic models rather than relying on heuristics similar to the one used in this paper.
+
+What shouldn't be ruled out is the size of the data as well as its linguistic structure. It is not clear how much data is needed to produce a good topic model. This will depend on a couple of factors, like the length of the documents in the corpus, and what writing style is used. Stories told by victims on Scamalert have a similar length to academic paper abstracts, but differ in that they are written informally. The impact of this on LDA is not very clear, and it is possible that the dataset is not large enough to produce good results.
+
+\subsubsection*{Coherence as a Metric}
+
+Goodhart's law describes that when a measure becomes a target, it ceases to become a good measure. It has its origins in economics and later found applications in social sciences.~\cite{strathern1997improving}\cite{goodhart2015goodhart} Having a target measure provides incentive to maximize it, which can lead to unintended consequences. Hoyle et al. (2021) ask whether this is also applicable to coherence score as a measure.~\cite{hoyle2021automated}
+
+While the coherence score is a widely used measure to evaluate topic models, it is by no means a gold-standard measure. It correlates with human interpretation but one cannot say whether it accurately describes it. Hoyle et al. (2021) are of the mind that the state of topic modeling today is overdue for serious reconsideration and intend to explore better automated metrics.~\cite{hoyle2021automated}
+
+While some $K_0$ number of topics may have a high coherence score, a different number of topics $K_1$ could also have a similar coherence score but with a different set of parameters. Though both models yield high coherence scores, it cannot be true that the corpus has both $K_0$ and $K_1$ topics. This problem arises from the metric that is used to evaluate the model. This is a problem that is inherent to unsupervised machine learning models.
+
+
+\subsubsection*{LDA}
+
+It is possible that LDA is not a suitable model for this dataset. There are other alternatives to LDA that might be a better fit for this dataset and produce more interpretable results.
+
+Being a machine learning process, topic modeling in general could also produce latent topics that are perhaps present in the data, but not interpretable by humans. This is a common problem in machine learning that is known as the "black box" problem that is being addressed by the research community, since it causes problems in high-stakes applications like healthcare, criminal justice and other domains. Rudin proposes a solution to this problem by using inherently interpretable models instead of black box models. This is a promising approach that could be applied to topic modeling as well.~\cite{rudin2019stop}
+
+LDA is also a bag-of-words (BOW) model, so it does not account for the order of words in a document. This means that the model is not able to capture the context of words.
+
+Another limitation is that LDA cannot capture correlations between topics. For example, if a corpus contains the topics "politics" and "tax", it is likely that there will be documents that contain both topics. However, Dirichlet distributions cannot capture this correlation.

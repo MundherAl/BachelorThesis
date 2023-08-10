@@ -5,6 +5,15 @@
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage{float}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    citecolor=blue
+}
 
 \begin{document}
 %===========================================================
@@ -54,41 +63,19 @@ Second supervisor: Prof.\ Dr.\ Melanie Schmidt
 %===========================================================
 \section*{Abstract}
 \addcontentsline{toc}{section}{Abstract}
-Lorem, ipsum dolor sit amet consectetur adipisicing elit. Facere corporis reiciendis accusantium adipisci veritatis facilis earum nemo debitis, minima eius eum vitae, rerum eaque excepturi molestias quibusdam quo? Quibusdam, obcaecati.
-Error quis eaque ipsam, veritatis hic nihil odit, perspiciatis maxime dolor animi optio sunt molestiae? Magnam maxime dolores nobis labore minus, tempore iste nulla voluptatibus eum tenetur commodi natus doloremque!
-Eum beatae ut provident corporis pariatur corrupti possimus recusandae officiis adipisci dolores tenetur accusamus ipsa sequi tempore numquam autem, laborum commodi quis minima voluptatibus nam unde eveniet sint animi. Quis?
-Consectetur, reprehenderit quisquam. Omnis facere eveniet dolore exercitationem quo ducimus consectetur quis facilis consequuntur, cupiditate architecto, reiciendis molestiae officia quaerat maiores optio, labore sapiente doloribus ex eaque recusandae corrupti iure?
-Ipsum architecto eveniet possimus rem quisquam, consequuntur consequatur totam magnam eum aspernatur? Quo, aliquid tempora ducimus perspiciatis inventore saepe, provident ea molestiae quos eius quia et? Assumenda voluptatum voluptates itaque?
-
-%===========================================================
-% Introduction
-%===========================================================
+Cybercrime is a growing threat to both organizations and individuals. The financial damages caused by cybercrime are very high, but an underresearched consequence of cybercrime is the psychological impact it has on victims.~\cite{horesearch} This paper aims to apply modern text analysis methods, namely topic modeling and sentiment analysis, to a corpus of stories of victims who have had encounters with cybercrime. The goal is to identify the topics that victims talk about and the sentiment of their stories. However, topic models and sentiment analyses have their limitations which seem to have affected the results of this paper.
 
 \input{introduction.tex}
-
-%===========================================================
-\section{Methodology}
-
 \input{methodology.tex}
 \input{data_collection.tex}
 \input{data_analysis_topic_model.tex}
 \input{data_analysis_sentiment_analysis.tex}
-\input{results.tex}
-
-%===========================================================
-
-\subsection{Sentiment Analysis}
-\subsubsection{Evaluation}
-
-%===========================================================
-
-\section{Discussion}
-\subsection{Summary}
-\subsection{Interpretation}
-\subsection{Limitations}
-\subsection{Future Research}
-\subsection{Conclusion}
-
+\input{results_topic_model.tex}
+\input{results_sentiment_analysis.tex}
+\input{discussion_lda.tex}
+\input{discussion_sentiment_analysis.tex}
+\input{discussion_future_work.tex}
+\input{discussion_conclusion.tex}
 
 %===========================================================
 % References
@@ -97,16 +84,13 @@ Ipsum architecto eveniet possimus rem quisquam, consequuntur consequatur totam m
 \bibliographystyle{plain}
 \bibliography{bibliography.bib}
 
-
-
-%===========================================================
 \pagebreak\noindent
-\textbf{\LARGE Erkl\"arung}
+\textbf{\LARGE Declaration}
 \addcontentsline{toc}{section}{Declaration}
 
 \bigskip\bigskip
 \noindent 
-I hereby confirm that I have independently written the 
+I hereby confirm that I have independently written my 
 bachelor's thesis and have not used any sources or aids 
 other than those specified.
 \bigskip
@@ -118,10 +102,6 @@ other than those specified.
 % Automatic date
 D\"usseldorf, \today \\
 (Mundher Al-Ahmadi)
-
-% bibliography
-% \bibliographystyle{plain}
-
 
 
 \end{document}

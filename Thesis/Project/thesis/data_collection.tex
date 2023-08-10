@@ -16,10 +16,10 @@ The webscraping process was done using four libraries in Julia. Julia is a conte
 The four libraries in use were:
 
 \begin{itemize}
-    \item HTTP.jl: A library for making HTTP requests and handling responses 
-    \item Gumbo.jl: A library for parsing HTML documents
-    \item Cascadia.jl: A library for querying HTML documents using CSS selectors
-    \item JSON.jl: A library for parsing JSON documents
+    \item HTTP.jl\footnote[0]{\url{https://juliaweb.github.io/HTTP.jl/stable/}}: A library for making HTTP requests and handling responses 
+    \item Gumbo.jl\footnote[1]{\url{https://github.com/JuliaWeb/Gumbo.jl}}: A library for parsing HTML documents
+    \item Cascadia.jl\footnote[2]{\url{https://docs.juliahub.com/Cascadia/Pq6Fi/0.4.0/}}: A library for querying HTML documents using CSS selectors
+    \item JSON.jl\footnote[3]{\url{https://docs.juliahub.com/JSON/uf6oy/0.21.0/}}: A library for parsing JSON documents
 \end{itemize}
 
 The first step of webscraping is figuring out the structure of the website to find an efficient way of scraping the data. Fortunately, the website was well-structured. The \texttt{/stories} directory contains all the pages with stories. The stories are paginated, with each page containing data about 6 stories. The pages contained a lot of metadata about the stories, but the most important were the following: title, date, category, URL and description of the story. The story itself is not included in the page. 
@@ -40,7 +40,7 @@ Since the aim is to do a text analysis, it is necessary to use natural language 
 
 \subsubsection*{Preprocessing for Topic Modeling}
 
-The preprocessing step for the topic model is illustrated in the following figure (figure 2):
+The preprocessing step for the topic model is illustrated in the following figure (figure \ref{fig:preprocessing_topic_modeling}):
 
 \begin{figure}[h]
     \centering
@@ -65,7 +65,9 @@ The preprocessing was done using the Natural Language Toolkit (NLTK) library. Us
     \label{tab:preprocessing}
 \end{table}
 
-Additionally, the TextBlob library in Python was used to correct spelling mistakes. This does not include grammatical errors. It is not a usual practice to correct for spelling errors in topic modeling. However, since the data set consists of stories written by users, there is a high chance of spelling errors. 
+Additionally, the spellchecker library for Python was used to correct spelling mistakes. The spell-correction is based on edit distance, so it is not context aware. This does not include grammatical errors. It is not a usual practice to correct for spelling errors in topic modeling. However, since the data set consists of stories written by users, there is a high chance of spelling errors. A distance of 1 was used, which means that the spellchecker will only correct words that are one edit away from a word in the dictionary. This is the recommendation of the authors.~\cite{spellchecker2023}
+
+Initially, the TextBlob library was used to correct spelling errors. However, upon discovering that the library has a 70\% accuracy ~\cite{loria2018textblob}, the decision was made to switch to the spellchecker library. The authors of the spellchecker library do not have a statement about the accuracy, but on the basis of some back-of-the-envelope testing, it seemed to be far more accurate.
 
 \begin{figure}[h]
     \centering

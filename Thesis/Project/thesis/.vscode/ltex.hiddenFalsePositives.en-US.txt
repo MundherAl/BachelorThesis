@@ -1,0 +1,1 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QHowever, the top 15 words included words like \"singapore\", \"time\", \"ask\", which are not necessarily related to monetary transactions.\\E$"}
