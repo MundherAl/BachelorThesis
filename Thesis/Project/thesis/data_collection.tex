@@ -4,7 +4,7 @@ Data collection is a crucial step in any research. When conducting a text analys
 
 \subsubsection{Scamalert}
 
-Scamalert is a website run by the National Crime Prevention Council (NCPC), which is a non-profit organization that is committed promoting public awareness and concern about crime and to propagate the concept of self-help in crime prevention.~\citep{ncpc} Scamalert contains educational sources to help people protect themselves from scams as well as provide information about acting after falling victim to a scam.
+Scamalert is a singaporean website run by the National Crime Prevention Council (NCPC), which is a non-profit organization that is committed promoting public awareness and concern about crime and to propagate the concept of self-help in crime prevention.~\citep{ncpc} Scamalert contains educational sources to help people protect themselves from scams as well as provide information about acting after falling victim to a scam.
 
 Most relevant to this paper is the section "Scam Stories". Persons who experience a crime can share their stories on the website. The stories can be sent anonymously and are published on the website. The stories are well-formatted, all containing a title, date, category, and the story itself.
 
@@ -24,13 +24,20 @@ The four libraries in use were:
 
 The first step of webscraping is figuring out the structure of the website to find an efficient way of scraping the data. Fortunately, the website was well-structured. The \texttt{/stories} directory contains all the pages with stories. The stories are paginated, with each page containing data about 6 stories. The pages contained a lot of metadata about the stories, but the most important were the following: title, date, category, URL and description of the story. The story itself is not included in the page. 
 
-This meant that the webscraping needed to be done in two steps. The first step was to collect the metadata of the stories. This was done through POST requests using HTML.jl. The requests were then parsed into JSON documents using JSON.jl then saved locally on the computer. The second step was to collect the stories themselves. This was done by iterating through the JSON documents and collecting the URLs of the stories. The URLS were then used in GET requests to collect the HTML documents of the stories. The HTML documents were then parsed using Gumbo.jl. The stories were then extracted from the HTML documents using CSS selectors provided by Cascadia.jl. The stories were then saved locally on the computer.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{resources/webscraper.drawio.png}
+    \caption{Webscraping process.}
+    \label{fig:webscraping}
+\end{figure}
+
+This meant that the webscraping needed to be done in two steps. The first step was to collect the metadata of the stories. This was done through POST requests using HTML.jl and then parsing them into .json files. The second step was to collect the stories themselves. By extracting the URLS from the .json, the pages containing the stories were downloaded as .html files, which were parsed using Gumbo.jl and Cascadia.jl, and the stories were extracted. The process is illustrated in figure \ref{fig:webscraping}.
 
 The data was collected on the 10th of July 2023. On the first step, a total of 590 pages were scraped, containing a total of 3536 stories. It was observed later in the process that the requests did not contain the category of the scams. This was not remedied as the category was not considered for the analysis.
 
 The second step retrieved 3495 stories, which is 41 stories less than expected. The process of scraping was logged. The logs have shown that there were 41 errors. The errors were not caused by connectivity issues, but rather by selector issues encountered by Cascadia.jl. Upon further investigation, it was found that the cause of the errors was the HTML documents themselves. The retrieved HTML documents contained an error that is likely caused by the website host deleting the story.
 
-After the webscraping step, a decision was made to switch to Python as the choice for a programming language. While Julia does have many data analysis libraries, it was decided that Python's ecosystem is more robust and enables more room for experimentation with the data. 
+After the webscraping step, a decision was made to switch to Python as the choice for a programming language.
 
 \subsubsection{Data Preprocessing}
 

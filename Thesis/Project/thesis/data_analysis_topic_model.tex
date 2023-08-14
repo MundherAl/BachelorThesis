@@ -16,6 +16,13 @@ LDA was proposed in 2003 by Blei, Ng and Jordan. It is a generative probabilisti
     \item Each word in the document is attributable to one of the $K$ topics and is distributed according to a Dirichlet distribution with the hyperparameter $\beta$.
 \end{itemize}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=1\textwidth]{resources/lda.drawio.png}
+    \caption{Graphical representation of the LDA model in Plate notation. $\theta$ and $\beta$ are latent variables. Shaded nodes indicate the observed variables (in this case, the words).}
+    \label{fig:lda}
+\end{figure}
+
 For this paper, the LDA module of python's gensim library is used.~\cite{rehurek_lrec} The gensim LDA implementation is based on Hoffman and David's implementation. The above-mentioned distributions are considered to be the prior distributions. The posterior distributions are then calculated using collapsed Gibbs sampling.
 
 \subsubsection{Parameter Tuning}

@@ -10,7 +10,7 @@ Neutral sentiment sentences have a compound score of 0. Negative compound scores
     \begin{tabular}{llll}
         \hline
         Data set & Positive & Neutral & Negative \\ \hline
-        With spell-correction & 0.34 & 0.44 & 0.22 \\
+        With spell-correction & 0.31 & 0.41 & 0.23 \\
         Without spell-correction & 0.31 & 0.42 & 0.27 \\
         \hline
     \end{tabular}
@@ -34,7 +34,7 @@ The mean compound score of the data set with spell-correct is 0.00 with a standa
             \hline
             Data set & Mean & Standard deviation & Minimum & Maximum \\ \hline
             With spell-correction & 0.00 & 0.35 & -0.98 & 1.00 \\
-            Without spell-correction & 0.00 & 0.32 & -0.98 & 1.00 \\
+            Without spell-correction & 0.00 & 0.35 & -0.98 & 1.00 \\
             \hline
         \end{tabular}
     }
@@ -65,4 +65,13 @@ The non-spell-corrected data set has 1,160 more positive sentences than negative
     \includegraphics[width=1\textwidth]{resources/positivity_distributions.png}
     \caption{Distribution of the positivity proportions in the data sets.}
     \label{fig:positivity_distribution}
+\end{figure}
+
+The distributions of all proportions are visually shown in figure \ref{fig:proportions}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{resources/proportions.png}
+    \caption{Distribution of the positivity proportions in the data sets.}
+    \label{fig:proportions}
 \end{figure}
